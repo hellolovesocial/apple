@@ -1,0 +1,93 @@
+{% extends "layout_a.html" %}
+
+{% block body %}
+{% if session.usernames %}
+  <h2>{{ entries.username }}'s apple</h2>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="container" style="background-color: #E3E3E3;">
+    <div>
+    <br>
+    <br>
+    <h1 class="h3 mb-3 font-weight-normal">Timeline</h1>
+    <br>
+    <br>
+    <ul style="list-style:none; margin:30px 290px 30px 250px;">
+    {% for entry in entries %}
+      <li><h3>{{ entry.title }}</h3>
+        <!-- <img src='{{ url_for('static',filename = 'picture/snow.jpg')}}' width=50 height=50> -->
+        <img src='{{ url_for('static',filename = entry.image)}}' width=500 height=500>
+        <br>
+        <br>
+
+        <h3>{{ entry.username }}</h3>
+        <p style="word-wrap: break-word;">{{ entry.text|safe }}</p>
+        <br>
+        <br>
+        <br>
+        <br>
+      </li>
+    {% else %}
+      <li><em>Unbelievable. No entries here so far.</em>
+    {% endfor %}
+    </ul>
+    <br>
+    <br>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="container" style="background-color: #E3E3E3;">
+    <div style="margin:50px 50px 100px 50px;">
+      <br>
+      <br>
+      <br>
+      <h1 class="h3 mb-3 font-weight-normal">Let's post your picture</h1>
+      <form action = "{{ url_for('add_entry') }}" method=post class=add-entry>
+        <dl>
+          <label for="inputEmail" class="sr-only">Username</label>
+          <input type=text class="form-control" placeholder="Username" required="" autofocus="" name='username'>
+          <label for="inputEmail" class="sr-only">Title</label>
+          <input type=text class="form-control" placeholder="Title" required="" autofocus="" name='title'>
+          <label for="inputEmail" class="sr-only">Text</label>
+          <textarea class="form-control" rows="3" name=text placeholder="Text"></textarea>
+          <label for="inputEmail" class="sr-only">Photo</label>
+          <input type=text class="form-control" placeholder="Picture Name" required="" autofocus="" name='image'>
+          <select class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <button class="btn btn-lg btn-block" type="submit" style="background-color: #8858AA; color: white;">SHARE</button>
+        </dl>
+      <form>
+      </ul>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+    </div>
+  </footer>
+  <br>
+  <br>
+{% endif %}
+{% endblock %}

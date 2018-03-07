@@ -1,0 +1,11 @@
+//import_mixins.less
+@import "less/variables.less";
+@import "less/mixins.less";
+
+@btn-new-color: #fff;  //文字色を白に
+@btn-new-bg: #DF78F1;  //ボタンの背景色を紫に
+@btn-new-border: darken(@btn-new-bg, 5%);  //ボーダーは背景色より 5% 暗くする
+
+.btn-new {
+  .button-variant(@btn-new-color; @btn-new-bg; @btn-new-border);
+}

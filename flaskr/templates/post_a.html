@@ -1,0 +1,40 @@
+{% extends "layout_a.html" %}
+
+{% block body %}
+<body class="text-center">
+  <div class="container">
+  <form action="{{url_for('add_entry')}}" method=post class="form-signin">
+
+
+
+
+    <div style="margin:50px 50px 100px 0px;">
+      <ul>let's post!
+      <form action = "{{ url_for('add_entry') }}" method=post class=add-entry>
+        <dl>
+          <dt>title
+          <dd><input type=text size=20 name=title>
+          <dt>text
+          <dd><textarea name=text rows=7 cols=20></textarea>
+          <dt>pics
+          <dd><input type=text size=30 name=image>
+          <dd><input type=submit value=SHARE>
+        </dl>
+      <form>
+      </ul>
+    </div>
+
+
+
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input type=text class="form-control" placeholder="Username" required="" autofocus="" name='username'>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name='password'>
+      <button class="btn btn-lg btn-block" type="submit" style="background-color: #8858AA; color: white;">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+  </form>
+  </div>
+</body>
+{% endblock %}
