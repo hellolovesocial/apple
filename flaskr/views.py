@@ -5,32 +5,38 @@ from flaskr.models import Entry, User
 @app.route('/')
 def show_entries():
     entries=Entry.query.order_by(Entry.id.desc()).all()
-    return render_template('main_a.html',entries=entries)
+    return render_template('main_a.html', entries=entries)
 
 @app.route('/add',methods=['POST'])
 def add_entry():
-    entry=Entry(
-                title = request.form['title'],
-                text = request.form['text'],
-                image = request.form['image'],
-                usernames = session['usernames']
-                )
+    entry = Entry(
+                  username = request.form['username'],
+                  title = request.form['title'],
+                  text = request.form['text'],
+                  image = request.form['image'],
+                  usernames = session['usernames']
+                  )
     db.session.add(entry)
     db.session.commit()
     print(request.form['image'])
-
     flash("commited!!!")
     return redirect(url_for('show_entries'))
+
+@app.route('/profile')
+def profile_show():
+    entries=Entry.query.order_by(Entry.id.desc()).all()
+    return render_template('profile_a.html', entries=entries)
+
 
 @app.route('/signup',methods=['POST','GET'])
 def signup():
     if request.method == 'POST':
-        useruser = Entry.query.filter(Entry.username == request.form['username']).first()
+        useruser = User.query.filter(User.username == request.form['username']).first()
         if useruser is None:
-            user=Entry(
-                      username = request.form['username'],
-                      password = request.form['password']
-                      )
+            user = User(
+                        username = request.form['username'],
+                        password = request.form['password']
+                        )
             db.session.add(user)
             db.session.commit()
             print(request.form['username'],
@@ -50,8 +56,7 @@ def signup():
 def login():
     if request.method == 'POST':
         # user = User.query.order_by(User.id.desc()).all()
-        user = Entry.query.filter(Entry.username == request.form['username']).first()
-        session['usernames'] = user.username
+        user = User.query.filter(User.username == request.form['username']).first()
         print(user)
         if user is None:
             flash('ユーザー名が間違っています！')
@@ -61,9 +66,9 @@ def login():
                 flash('パスワードが間違っています！')
                 return redirect(url_for('login'))
             else:
+                session['usernames'] = user.username
                 # user = User.query.filter(User.username == request.form['username']).first()
                 flash('ログインできました！')
-
                 return redirect(url_for('show_entries'),)
         # sqlchemyはループを回すとき数字じゃなくて、言葉で！
         # print(user[0])
@@ -81,10 +86,10 @@ def login():
             #     else:
             #         flash('ユーザー名が間違っています！')
             #         return redirect(url_for('login'))
-        return render_template('login_a.html')
+    return render_template('login_a.html')
 
-    @app.route('/logout')
-    def logout():
-        session.pop('usernames', None)
-        flash('You were logged out')
-        return redirect(url_for('show_entries'))
+@app.route('/logout')
+def logout():
+    session.pop('usernames', None)
+    flash('You were logged out')
+    return redirect(url_for('show_entries'))

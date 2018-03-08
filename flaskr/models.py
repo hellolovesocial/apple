@@ -1,14 +1,13 @@
 from flaskr import db
 
 class Entry(db.Model):
-    __tablename__='entries'
+    __tablename__ = 'entries'
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.Text)
     text = db.Column(db.Text)
     image = db.Column(db.Text)
     usernames = db.Column(db.Text)
-    username = db.Column(db.String(100), default='', nullable=False)
-    password = db.Column('password', db.String(100), nullable=False)
+    username = db.Column(db.Text)
 
     def __repr__(self):
         return '<Entry id={id},title={title!r},text={text!r}>'.format(id=self.id,title=self.title,text=self.text)
